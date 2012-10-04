@@ -22,7 +22,7 @@ Python 客户端
     import json
     
     def api(uri):
-        return 'http://127.0.0.1:8080'
+        return 'http://127.0.0.1:8080' + uri
     
     data = {
             'url':'http://v.youku.com/v_show/id_XNDU3NjM0NzMy.html',# require
