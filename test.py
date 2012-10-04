@@ -47,3 +47,7 @@ def main(script, function):
         quit()
     else:
         play()
+
+if __name__ == '__main__':
+    import sys
+    main(*sys.argv)
