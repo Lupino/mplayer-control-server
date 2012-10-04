@@ -11,11 +11,19 @@ A control-server for mplayer. You can control mplayer from the web
     easy_install beautifulsoup4
     easy_install requests
     easy_install mplayer.py
+    python app.py
+
+Python 客户端
+=============
 
 播放视频:
 
     import requests
     import json
+    
+    def api(uri):
+        return 'http://127.0.0.1:8080'
+    
     data = {
             'url':'http://v.youku.com/v_show/id_XNDU3NjM0NzMy.html',# require
             'files', [], # require
