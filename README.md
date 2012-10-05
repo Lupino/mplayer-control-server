@@ -55,6 +55,43 @@ Python 客户端
     r = requests.post(api('/volume'), data={'value':50})
     print(r.json)
 
+查看是否暂停：
+
+    r = requests.get(api('/paused'))
+    print(r.json)
+
+修改暂停状态：
+    r = requests.post(api('/pause'))
+    print(r.json)
+
+定位：
+
+    r = requests.post(api('/seek'), data={
+                'value':20,
+                'type':0 # 可选,0 是一个相对定位+/- <value>（默认值）。
+                         #      1 是定位<value>％在电影里。
+                         #      2 是寻求一个绝对位置的<value>秒。
+            })
+    print(r.json)
+
+下一个/上一个视频：
+    
+    r = requests.post(api('/pt_step'), data={
+                'value':1 # 1 为下一个，-1 上一个
+                'force':0 # 可选 默认为 0
+            })
+    print(r.json)
+
+静音：
+
+    r = requests.post(api('/mute'))
+    print(r.json)
+
+查看状态：
+
+    r = requests.get(api('/status'))
+    print(r.json)
+
 退出：
 
     r = requests.post(api('/quit'))
