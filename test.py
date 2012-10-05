@@ -39,11 +39,27 @@ def pause():
     r = requests.post(api('/pause'))
     print(r.json)
 
+def pt_step(value, force=None):
+    r = requests.post(api('/pt_step'), data={'value':value, 'force':force})
+    print(r.json)
+
+def seek(value, type=0):
+    r = requests.post(api('/seek'), data={'value':value, 'type':type})
+    print(r.json)
+
+def mute():
+    r = requests.post(api('/mute'))
+    print(r.json)
+
+def status():
+    r = requests.get(api('/status'))
+    print(r.json)
+
 def quit():
     r = requests.post(api('/quit'))
     print(r.json)
 
-def main(script, function, source=None):
+def main(script, function, source=None, t=None):
     if function == 'play':
         play(source)
     elif function == 'fullscreen':
@@ -54,6 +70,14 @@ def main(script, function, source=None):
         quit()
     elif function == 'pause':
         pause()
+    elif function == 'seek':
+        seek(source, t)
+    elif function == 'pt_step':
+        pt_step(source, t)
+    elif function == 'status':
+        status()
+    elif function == 'mute':
+        mute()
     else:
         if source is None:
             source = function 
