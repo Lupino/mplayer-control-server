@@ -6,10 +6,10 @@ HOST = 'http://127.0.0.1:8080'
 def api(uri):
     return HOST + uri
 
-def play():
+def play(url):
     data = {
-            'url':'',# require
-            'files', [], # require
+            'url':url,# require
+            'files': [], # require
             'start':0, # 0 为立即播放
             'format': 'nomal', # nomal, super
             'fullscreen': True,
@@ -25,28 +25,39 @@ def fullscreen():
     r = requests.post(api('/fullscreen'))
     print(r.json)
 
-def volume():
+def volume(volume):
     r = reqiests.get(api('/volume'))
     print(r.json)
 
-    r = requests.post(api('/volume'), data={'value': 50})
+    r = requests.post(api('/volume'), data={'value': volume})
+    print(r.json)
+
+def pause():
+    r = requests.get(api('/paused'))
+    print(r.json)
+
+    r = requests.post(api('/pause'))
     print(r.json)
 
 def quit():
     r = requests.post(api('/quit'))
     print(r.json)
 
-def main(script, function):
+def main(script, function, source=None):
     if function == 'play':
-        play()
+        play(source)
     elif function == 'fullscreen':
         fullscreen()
     elif function == 'volume':
-        volume()
+        volume(source)
     elif function == 'quit':
         quit()
+    elif function == 'pause':
+        pause()
     else:
-        play()
+        if source is None:
+            source = function 
+        play(source)
 
 if __name__ == '__main__':
     import sys
