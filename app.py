@@ -106,6 +106,43 @@ def volume(is_set=True):
 def _volume():
     return volume(False)
 
+@app.post('/seek')
+def seek():
+    if player and player.is_alive():
+        value = request.forms.get('value', 0)
+        type = request.forms.get('type', 0)
+        player.seek(float(value), int(type))
+        return {'length':player.length, 'position':player.percent_pos}
+    return {'err':'403', 'msg':'player is quit'}
+
+@app.post('/pt_step')
+def pt_step():
+    if player and player.is_alive():
+        value = request.forms.get('value', 1)
+        force = request.forms.get('force', None)
+        if force:
+            player.pt_step(int(value), int(force))
+        else:
+            player.pt_step(int(value))
+        return {'filename':player.filename}
+    else:
+        return {'err':'403', 'msg':'player is quit'}
+
+@app.get('/status')
+def status():
+    if player and player.is_alive():
+        return {'filename':player.filename, 'pos':player.percent_pos, 'length':player.length}
+    else:
+        return {'err':'403', 'msg':'player is quit'}
+
+@app.post('/mute')
+def mute():
+    if player and player.is_alive():
+        player.mute = not player.mute
+        return {'mute':player.mute}
+    else:
+        return {'err':'403', 'msg':'player is quit'}
+
 if __name__ == '__main__':
     from bottle import run
     run(app)
