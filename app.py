@@ -119,7 +119,7 @@ def seek():
 def pt_step():
     if player and player.is_alive():
         value = request.forms.get('value', 1)
-        force = request.forms.get('force', None)
+        force = request.forms.get('force', 0)
         if force:
             player.pt_step(int(value), int(force))
         else:
@@ -131,7 +131,7 @@ def pt_step():
 @app.get('/status')
 def status():
     if player and player.is_alive():
-        return {'filename':player.filename, 'pos':player.percent_pos, 'length':player.length}
+        return {'filename':player.filename, 'position':player.percent_pos, 'length':player.length}
     else:
         return {'err':'403', 'msg':'player is quit'}
 

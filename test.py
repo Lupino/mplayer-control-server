@@ -39,7 +39,7 @@ def pause():
     r = requests.post(api('/pause'))
     print(r.json)
 
-def pt_step(value, force=None):
+def pt_step(value, force=0):
     r = requests.post(api('/pt_step'), data={'value':value, 'force':force})
     print(r.json)
 
