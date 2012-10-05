@@ -61,6 +61,7 @@ Python 客户端
     print(r.json)
 
 修改暂停状态：
+
     r = requests.post(api('/pause'))
     print(r.json)
 
